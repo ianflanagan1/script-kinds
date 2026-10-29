@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/ianflanagan1/script-kinds/main/schema/ianf-script-kinds.v1.json",
+  "title": ".config/ianf-script-kinds.toml, version 1",
+  "description": "The kind of each script a tool requires outside scripts/dev/ and scripts/server/, and of each of the application's own entry points, for script-kinds, which reads each worktree's own copy. See script-kinds' README.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["version"],
+  "properties": {
+    "version": {
+      "description": "The version of this file's format.",
+      "const": 1
+    },
+    "kinds": {
+      "description": "Each script's path from the repository's root, with its kind: dev if it runs on a developer's machine or in CI, server if it runs on the target host or image, app if it's the application's own entry point, such as a framework's console.",
+      "type": "object",
+      "propertyNames": { "pattern": "^(?!/)(?!.*(^|/)\\.\\.(/|$)).+$" },
+      "additionalProperties": { "enum": ["dev", "server", "app"] }
+    }
+  }
+}
